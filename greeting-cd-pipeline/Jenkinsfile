@@ -11,7 +11,14 @@ pipeline {
                 sh "node test.js"
             }
         }
+	stage('Deploy') {
+		steps {
+			sh '''
+			oc start-build greeting-metrics \
+			--follow --wait -n RHT_OCP4_DEV_USER-metrics
+			'''
+		}
+	}
 
-        // Add more stages here
     }
 }
